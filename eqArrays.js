@@ -18,7 +18,7 @@ function checkTypeAndValue(firstItem, secondItem) {
   // Check for types that cannot be covered by ===
 
   // Arrays
-  if (Array.isArray(firstItem) === Array.isArray(secondItem)) {
+  if (Array.isArray(firstItem) && Array.isArray(secondItem)) {
     // Call the eqArray function again using these sub arrays
     return eqArrays(firstItem, secondItem);
   }
@@ -68,8 +68,12 @@ function checkTypeAndValue(firstItem, secondItem) {
       let firstItemKeyValue = firstItem[commonKey];
       let secondItemKeyValue = secondItem[commonKey];
 
-      return checkTypeAndValue(firstItemKeyValue, secondItemKeyValue);
+      if (!checkTypeAndValue(firstItemKeyValue, secondItemKeyValue)) {
+        return false;
+      }
+      continue;
     }
+    return true;
   }
 
   // Rest can be checked by the native comparison operator of ===
