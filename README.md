@@ -11,6 +11,8 @@ Lotide [repo](git@github.com:benyoo5222/lotide.git) is a library that tries to m
 - [Tail](./tail.js)
 - [Equal Arrays](./eqArrays.js)
 - [Assert Equal Arrays](./assertArraysEqual.js)
+- [Without](./without.js)
+- [Middle](./middle.js)
 
 _Assert Equal_
 
@@ -201,5 +203,61 @@ const assertArraysEqual = (firstArray, secondArray) => {
   eqArrays(firstArray, secondArray)
     ? console.log(successMessage)
     : console.log(errorMessage);
+};
+```
+
+_Without_
+
+This function removes items from the array by passing in a second array.
+
+```javascript
+// This function removes the items from the first array by using the items in the second array
+const without = (sourceArray, itemsToRemoveArray) => {
+  const newArrayWithRemovedItems = [];
+  // Loop through both arrays and compare
+  // If they dont match, push it to a new array
+  let indexPosition = 0;
+  let pushToNewArray = true;
+  for (let sourceItem of sourceArray) {
+    for (let itemToRemove of itemsToRemoveArray) {
+      if (sourceItem === itemToRemove) {
+        pushToNewArray = false;
+      }
+    }
+    pushToNewArray
+      ? newArrayWithRemovedItems.push(sourceArray[indexPosition])
+      : null;
+    indexPosition++;
+    pushToNewArray = true;
+  }
+
+  return newArrayWithRemovedItems;
+};
+```
+
+_Middle_
+
+This function returns the middle index value from the array.
+
+```javascript
+// This function take in an array of numbers and returns the middle index value
+
+const middle = (array) => {
+  // Assuming that the array has been ordered
+  // In order to have a "middle" value, the passed in array must be at least 3 in length
+  // Odd number will have a single "middle" value
+  // Even number of items will have two "middle" value
+  if (array.length <= 2) {
+    return [];
+  }
+
+  if (array.length % 2 === 0) {
+    const firstMiddleIndex = array.length / 2 - 1;
+    const secondMiddleIndex = firstMiddleIndex + 1;
+
+    return [array[firstMiddleIndex], array[secondMiddleIndex]];
+  }
+
+  return [array[Math.floor(array.length / 2)]];
 };
 ```
